@@ -1,0 +1,29 @@
+#:import menu menu
+#:import modes modes
+MainWidget:
+
+<MainWidget>
+    menu_widget: menu_widget
+    modes_widget: modes_widget
+    canvas.before:
+        Rectangle:
+            size: self.size
+            source: "../images/bg1.jpg"
+    Label:
+        font_name: 'Eurostile.ttf'
+        font_size: self.width*0.02
+        text: root.score_label
+        pos_hint: {'center_x': 0.94, 'center_y': 0.95}
+    Label:
+        font_name: 'Eurostile.ttf'
+        font_size: self.width*0.012
+        text: root.best_score_label
+        pos_hint: {'center_x': 0.95, 'center_y': 0.92}
+    Menu: 
+        id: menu_widget
+    Modes:
+        id: modes_widget
+
+
+
+    
