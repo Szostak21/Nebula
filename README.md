@@ -31,10 +31,10 @@
 </p>
 
 The **Modes** screen lets you experiment with different gameplay variants:
-- Mirror mode (left/right swap)
-- Narrow lanes (reduce spacing)
-- Sudden death (higher speed cap)
-- Color shift / dynamic themes
+- Turtle mode (slow speed)
+- Sonic mode (very fast speed)
+- Tight mode (only 3 lanes)
+- Wide mode (a LOT of lanes)
 
 Each mode can be toggled for a fresh challenge, making Nebula highly replayable and easy to extend.
 
