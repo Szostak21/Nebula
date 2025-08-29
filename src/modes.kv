@@ -1,154 +1,65 @@
+#:import dp kivy.metrics.dp
 <Modes>:
     opacity: 0
-    RelativeLayout:
-        canvas.before:
-            Color:
-                rgba: 0, 0, 0, 1
-            Rectangle:
-                size: self.size
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(40)
+        spacing: dp(30)
+        Label:
+            font_name: 'Sackers-Gothic-Std-Light.ttf'
+            text: 'M   O   D   E   S'
+            font_size: root.width * 0.06
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
         BoxLayout:
-            orientation: 'vertical'
-            spacing: self.height * 0.1
-            padding: self.height * 0.03
-            BoxLayout:
-                orientation: 'vertical'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_y: 1
-                Label:
-                    font_name: 'Sackers-Gothic-Std-Light.ttf'
-                    text: 'M O D E S'
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-                    font_size: self.width * 0.07
-            # Mode rows
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_x: 1
-                Label:
-                    font_name: 'Sackers-Gothic-Std-Light.ttf'
-                    text: 'Mode 1:'
-                    font_size: self.width * 0.1
-                    size_hint_x: 0.8
-                Button:
-                    id: toggle_button_1
-                    font_name: 'Eurostile.ttf'
-                    text: 'OFF'
-                    font_size: self.width * 0.3
-                    background_normal: ''
-                    background_color: 1, .3, .4
-                    size_hint_x: 0.3
-                Widget:
-                    size_hint_x: 1
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_x: 1
-                Label:
-                    font_name: 'Sackers-Gothic-Std-Light.ttf'
-                    text: 'Mode 2:'
-                    font_size: self.width * 0.1
-                    size_hint_x: 0.8
-                Button:
-                    id: toggle_button_2
-                    font_name: 'Eurostile.ttf'
-                    text: 'OFF'
-                    font_size: self.width * 0.3
-                    background_normal: ''
-                    background_color: 1, .3, .4
-                    size_hint_x: 0.3
-                Widget:
-                    size_hint_x: 1
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_x: 1
-                Label:
-                    font_name: 'Sackers-Gothic-Std-Light.ttf'
-                    text: 'Mode 3:'
-                    font_size: self.width * 0.1
-                    size_hint_x: 0.8
-                Button:
-                    id: toggle_button_3
-                    font_name: 'Eurostile.ttf'
-                    text: 'OFF'
-                    font_size: self.width * 0.3
-                    background_normal: ''
-                    background_color: 1, .3, .4
-                    size_hint_x: 0.3
-                Widget:
-                    size_hint_x: 1
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_x: 1
-                Label:
-                    font_name: 'Sackers-Gothic-Std-Light.ttf'
-                    text: 'Mode 4:'
-                    font_size: self.width * 0.1
-                    size_hint_x: 0.8
-                Button:
-                    id: toggle_button_4
-                    font_name: 'Eurostile.ttf'
-                    text: 'OFF'
-                    font_size: self.width * 0.3
-                    background_normal: ''
-                    background_color: 1, .3, .4
-                    size_hint_x: 0.3
-                Widget:
-                    size_hint_x: 1
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_x: 1
-                Label:
-                    font_name: '../fonts/Sackers-Gothic-Std-Light.ttf'
-                    text: 'Mode 5:'
-                    font_size: self.width * 0.1
-                    size_hint_x: 0.8
-                Button:
-                    id: toggle_button_5
-                    font_name: 'Eurostile.ttf'
-                    text: 'OFF'
-                    font_size: self.width * 0.3
-                    background_normal: ''
-                    background_color: 1, .3, .4
-                    size_hint_x: 0.3
-                Widget:
-                    size_hint_x: 1
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 50
-                spacing: 0
-                Widget:
-                    size_hint_x: 1
-                Button:
-                    id: return_button
-                    text: 'RETURN TO MENU'
-                    font_name: 'Eurostile.ttf'
-                    font_size: self.width * 0.09
-                    background_normal: ''
-                    background_color: 1, .3, .4
-                    size_hint_x: 1
-                Widget:
-                    size_hint_x: 1
-            Widget:
-                size_hint_y: 1
+            size_hint_y: None
+            height: root.height * 0.12
+            spacing: dp(15)
+            Button:
+                id: toggle_button_1
+                font_name: 'Eurostile.ttf'
+                text: 'T  U  R  T  L  E'
+                font_size: root.width * 0.035
+                background_normal: ''
+                background_color: 1,.3,.4,1
+            Button:
+                id: toggle_button_2
+                font_name: 'Eurostile.ttf'
+                text: 'S  O  N  I  C'
+                font_size: root.width * 0.035
+                background_normal: ''
+                background_color: 1,.3,.4,1
+        BoxLayout:
+            size_hint_y: None
+            height: root.height * 0.12
+            spacing: dp(15)
+            Button:
+                id: tight_button
+                font_name: 'Eurostile.ttf'
+                text: 'T  I  G  H  T'
+                font_size: root.width * 0.035
+                background_normal: ''
+                background_color: 1,.3,.4,1
+            Button:
+                id: wide_button
+                font_name: 'Eurostile.ttf'
+                text: 'W  I  D  E'
+                font_size: root.width * 0.035
+                background_normal: ''
+                background_color: 1,.3,.4,1
+        Button:
+            id: return_button
+            size_hint_y: None
+            height: root.height * 0.12
+            text: 'RETURN TO MENU'
+            font_name: 'Eurostile.ttf'
+            font_size: root.width * 0.04
+            background_normal: ''
+            background_color: 1,.3,.4,1
+        Widget:

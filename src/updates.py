@@ -2,12 +2,20 @@ from pathlib import Path
 
 APP_DIR = Path(__file__).resolve().parent
 def update_vlines(self):
-    start_index = -int(self.vlines_number/2) + 1
-    for i in range (start_index, start_index+self.vlines_number):
-        line_v = self.get_linev_from_index(i)
+    """Update vertical lines positions.
+
+    Refactored to enumerate over existing line objects instead of indexing the list
+    with potentially negative logical indices. This makes dynamic changes to
+    vlines_number (rebuild_vlines) safe and decouples logical track index from
+    list index order.
+    """
+    start_index = -int(self.vlines_number / 2) + 1
+    for list_idx, line in enumerate(self.vlines):
+        logical_index = start_index + list_idx
+        line_v = self.get_linev_from_index(logical_index)
         x1, y1 = self.transform(line_v, 0)
         x2, y2 = self.transform(line_v, self.height)
-        self.vlines[i].points = [x1, y1, x2, y2]
+        line.points = [x1, y1, x2, y2]
 
 def update_hlines(self):
     start_index = -int(self.vlines_number/2) + 1

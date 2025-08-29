@@ -79,6 +79,24 @@ class MainWidget(RelativeLayout):
     score_label = StringProperty("SCORE: " + str(score))
     best_score_label = StringProperty("BEST SCORE: " + str(best_score))
 
+    # Mode system (preparation for UI buttons):
+    # mode_speed: 'normal'|'turtle'|'sonic'
+    # mode_width: 'normal'|'tight'|'wide'
+    mode_speed = StringProperty('normal')
+    mode_width = StringProperty('normal')
+    base_speed = NumericProperty(8)  # starting speed after applying modes
+
+    MODE_SPEEDS = {
+        'normal': 8,
+        'turtle': 5,
+        'sonic': 12,
+    }
+    MODE_VLINES = {
+    'normal': 8,
+    'tight': 4,
+    'wide': 20,
+    }
+
     def __init__(self, **kwargs):
         super(MainWidget, self).__init__(**kwargs)
         self.build_vlines()
@@ -97,17 +115,17 @@ class MainWidget(RelativeLayout):
         Clock.schedule_interval(self.update, 1/60)                       #FPS
 
     def reset_game(self):
+        """Reset all dynamic game state while honoring currently selected modes."""
         self.current_loop = 0
         self.current_offset = 0
         self.last_y = 0
         self.movement = 0
-        self.speed = 8
+        # Ensure the latest applied mode speed is used
+        self.speed = self.base_speed
         self.score = 0
         self.load()
-
         self.tiles_coordinates.clear()
         self.generate_tiles_coordinates()
-
         self.state_game_started = True
         self.state_game_over = False
 
@@ -198,12 +216,16 @@ class MainWidget(RelativeLayout):
             self.current_offset = 0
             self.last_y = 0
             self.movement = 0
-            self.speed = 8
+            # Use mode-adjusted base speed when returning to main menu
+            self.speed = self.base_speed
             self.score = 0
             self.state_game_started = False
             self.tiles_coordinates.clear()
             self.generate_tiles_coordinates()
             self.update_tiles()
+
+            # Re-apply selected modes (in case settings changed before returning)
+            self.apply_selected_modes()
 
             self.state_game_over = False
             
@@ -218,6 +240,73 @@ class MainWidget(RelativeLayout):
 
     def on_modes_button(self):
         print('test')
+
+    # --- Mode preparation helpers (UI to be wired later) ---
+    def rebuild_vlines(self, new_number):
+        """Remove existing vertical line instructions and rebuild with new count."""
+        if new_number == self.vlines_number:
+            return
+        self.vlines_number = new_number
+        # Rebuild inside persistent instruction group (keeps z-order stable)
+        self.build_vlines()
+
+    def apply_selected_modes(self):
+        """Apply current mode settings (speed / track width). Safe to call multiple times.
+        Rebuilds vertical lines & regenerates tiles if width changed."""
+        # Determine desired parameters
+        desired_speed = self.MODE_SPEEDS.get(self.mode_speed, 8)
+        desired_vlines = self.MODE_VLINES.get(self.mode_width, 8)
+
+        width_changed = desired_vlines != self.vlines_number
+        if width_changed:
+            # Rebuild vertical lines to match new count
+            self.rebuild_vlines(desired_vlines)
+            # Reset tile path generation constraints safely (only when game not running)
+            if not self.state_game_started:
+                self.tiles_coordinates.clear()
+                self.last_y = 0
+                # generate a fresh initial path
+                self.generate_tiles_coordinates()
+
+        # Update base speed used at game start / resets
+        self.base_speed = desired_speed
+        if not self.state_game_started:
+            self.speed = self.base_speed
+
+    def update_mode_settings(self, *, speed=None, width=None):
+        """Convenience placeholder for future button callbacks."""
+        if speed in self.MODE_SPEEDS:
+            self.mode_speed = speed
+        if width in self.MODE_VLINES:
+            self.mode_width = width
+        self.apply_selected_modes()
+
+    # --- Upcoming width mode button helpers ---
+    def change_track_width(self, new_vlines_number):
+        """Public helper for UI buttons to change number of vertical lines.
+        Rebuilds lines & regenerates tiles if not in active game; if game active,
+        applies at next reset.
+        """
+        try:
+            new_v = int(new_vlines_number)
+        except (TypeError, ValueError):
+            return
+        if new_v < 4 or new_v > 30 or new_v % 2 != 0:
+            # enforce even number and sane bounds
+            return
+        if new_v == self.vlines_number:
+            return
+        if self.state_game_started:
+            # Defer: store desired width in mode mapping and apply on next reset
+            # Map arbitrary even counts to temporary MODE_VLINES entries
+            self.MODE_VLINES['custom'] = new_v
+            self.mode_width = 'custom'
+            return
+        # Not running: apply immediately
+        self.rebuild_vlines(new_v)
+        self.tiles_coordinates.clear()
+        self.last_y = 0
+        self.generate_tiles_coordinates()
 
 class NebulaApp(App):
     pass

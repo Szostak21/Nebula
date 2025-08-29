@@ -3,13 +3,30 @@ from kivy.graphics.context_instructions import Color
 from kivy.graphics.vertex_instructions import Line
 from kivy.graphics.vertex_instructions import Quad
 from kivy.graphics.vertex_instructions import Triangle
+from kivy.graphics import InstructionGroup
 
 def build_vlines(self):
-    with self.canvas:
-        Color(1, 1, 1)
-        for i in range (self.vlines_number):
-            line = Line(width = 1.1)
-            self.vlines.append(line)
+    """(Re)build vertical lines inside a persistent instruction group so their
+    z-order stays behind tiles/ship even after width changes.
+
+    Using an InstructionGroup prevents rebuilt lines from being appended to the
+    end of the canvas (which previously caused them to draw over the ship and
+    tiles after a width mode change).
+    """
+    # Create group once and add to canvas at initial build (early => behind)
+    if not hasattr(self, 'vlines_group'):
+        self.vlines_group = InstructionGroup()
+        # Add the group now (early in app start) so it stays below later items
+        self.canvas.add(self.vlines_group)
+    # Clear existing line instructions
+    self.vlines_group.clear()
+    self.vlines.clear()
+    # Re-add color + lines
+    self.vlines_group.add(Color(1, 1, 1))
+    for _ in range(self.vlines_number):
+        line = Line(width=1.1)
+        self.vlines_group.add(line)
+        self.vlines.append(line)
 
 def build_hlines(self):
     with self.canvas:

@@ -1,0 +1,74 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+wheelhouse/
+
+# Logs / dumps
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage*
+.cache/
+.pytest_cache/
+.mypy_cache/
+coverage.xml
+pytestdebug.log
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*.orig
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Buildozer / Kivy / Android
+.buildozer/
+.buildozer/*
+.gradle/
+**/bin/
+**/local.properties
+**/buildozer/.gradle/
+*.apk
+*.aab
+
+# Kivy cache
+*.pyo
+
+# Misc
+*.bak
+*.tmp
+~$*
+
+# Don't ignore these asset directories (keep game assets under version control)!
+!audio/
+!fonts/
+!images/
+!src/
+
+# Allow score file if you want to track a sample baseline; comment out to ignore dynamic scores
+# best_score.txt
