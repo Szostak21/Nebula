@@ -1,26 +1,57 @@
+
 # Nebula
 
-High‑speed minimalist perspective runner built with **Python** and **Kivy**. You pilot a tiny ship racing forward over an infinite grid, dodging gaps and chasing a climbing score while the playfield warps in pseudo‑3D.
+**Nebula** is a high-speed, minimalist perspective runner built with **Python** and **Kivy**. Designed for both desktop and mobile, it delivers a fast-paced arcade experience with intuitive controls and dynamic visuals. Pilot a tiny ship over an infinite grid, dodging gaps and chasing a climbing score as the playfield warps in pseudo‑3D.
+
+
+<p align="center">
+  <img src="docs/media/demo.gif" alt="Nebula Gameplay Demo" width="600"/>
+</p>
+
 
 ## 🎮 Core Gameplay
-- Procedurally extending track: new tiles spawn ahead as you move
-- Increasing speed curve tied to distance (score)
-- One‑touch / two‑arrow controls (desktop & mobile friendly)
-- Instant restart loop for fast iteration
-- Built‑in tutorial messages for new players (auto hides once you reach a threshold)
+- **Procedural track generation:** New tiles spawn ahead as you move, ensuring endless replayability.
+- **Dynamic speed curve:** The game ramps up difficulty as your score increases.
+- **Intuitive controls:** One-touch or two-arrow controls, optimized for both desktop and mobile devices.
+- **Instant restart:** Fast iteration loop for quick retries and addictive gameplay.
+- **Built-in tutorial:** Helpful messages for new players, auto-hiding after a threshold.
+
 
 ## ✨ Features
-- Perspective transform effect for lane lines & tiles
-- Dynamic difficulty: gradual speed ramp up to a cap
-- Best score persistence via simple text file
-- Separate menus for Start and Modes (extensible for future variants)
-- Clean separation of logic: build, update, transforms, user interaction modules
+- **Immersive perspective effects:** Lane lines and tiles warp in real-time for a pseudo-3D look.
+- **Dynamic difficulty:** Gradual speed ramp up to a challenging cap.
+- **Best score tracking:** Persistent high score saved locally.
+- **Modes menu:** Try different gameplay variants for extra challenge and replay value.
+- **Modular architecture:** Clean separation of logic for easy extension and maintenance.
+
+
+## 🧩 Modes & Replay Value
+<p align="center">
+  <img src="docs/media/modes.png" alt="Modes Menu Screenshot" width="400"/>
+</p>
+
+The **Modes** screen lets you experiment with different gameplay variants:
+- Mirror mode (left/right swap)
+- Narrow lanes (reduce spacing)
+- Sudden death (higher speed cap)
+- Color shift / dynamic themes
+
+Each mode can be toggled for a fresh challenge, making Nebula highly replayable and easy to extend.
+
+
+## 🛠 Technical Highlights
+- **Cross-platform:** Runs smoothly on desktop and mobile (Android-ready via Buildozer).
+- **Python + Kivy:** Rapid prototyping with a modern UI toolkit.
+- **Resource management:** Assets referenced simply, with custom fonts and sound effects.
+- **Perspective math:** Transform utilities for consistent, reusable effects.
+- **Declarative UI:** Modular KV files for clean visual structure.
+
 
 ## 🗂 Project Structure
 ```
 Nebula/
   audio/           # Sound effects & music (wav)
-  fonts/           # Custom fonts (Eurostile, Sackers Gothic)
+  fonts/           # Custom fonts
   images/          # Background art
   src/             # Game source + KV UI layouts
     main.py        # App bootstrap + root widget
@@ -30,12 +61,14 @@ Nebula/
     user_interactions.py # Input handlers
     menu.kv, modes.kv, nebula.kv # UI layout definitions
     best_score.txt # Simple persisted high score
+  docs/media/      # Demo GIF & screenshots
   README.md
   .gitignore
 ```
 
+
 ## 🚀 Run Locally
-Install dependencies (Kivy) and run the game:
+Install dependencies and launch Nebula:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -43,45 +76,15 @@ pip install kivy
 python src/main.py
 ```
 
-## 🧩 Extending Modes
-The `Modes` screen already lays out toggle placeholders (`toggle_button_1` ...). Ideas:
-- Mirror mode (left/right swap)
-- Narrow lanes (reduce spacing)
-- Sudden death (higher speed cap)
-- Color shift / dynamic themes
 
-Each mode can map to flags on `MainWidget` and alter update math.
-
-## 🛠 Technical Highlights
-- Uses `resource_add_path` to simplify asset referencing (just font filenames)
-- Perspective handled by transform utilities for consistent reuse
-- Modular KV files keep visual structure declarative
-- Minimal stateful persistence (text high score) to avoid DB overhead
-
-## 📦 Packaging (Android / Desktop)
-A `buildozer.spec` is present; to try Android packaging:
+## 📦 Packaging (Android & Desktop)
+Nebula is ready for Android and desktop packaging. Use Buildozer for mobile deployment:
 ```bash
 pip install buildozer
-buildozer init   # (already done)
 buildozer -v android debug
 ```
-Outputs will appear under `.buildozer/` (ignored by git).
+Outputs appear under `.buildozer/`.
 
-## 🧪 Possible Next Improvements
-- Add unit tests for math in `transforms.py`
-- Introduce sound management (preload & volume control)
-- Particle / trail effects for the ship
-- Settings persistence (JSON) instead of bare text
-- CI workflow (GitHub Actions) to lint & package
-
-## 📸 Screens / Media (Add Later)
-Add GIF or short MP4 of gameplay for portfolio visibility.
 
 ## 🏷 License
-Add a license you prefer (MIT recommended) before publishing.
-
-## 🙋 About
-This project showcases rapid prototyping of an arcade mechanic with Python + Kivy, emphasizing clean module separation, progressive difficulty, and portability for desktop/mobile.
-
----
-Feel free to fork, experiment with new modes, or integrate new visual themes.
+[MIT License](LICENSE)
